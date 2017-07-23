@@ -49,6 +49,12 @@ Route::group(['prefix' => 'api/v1'], function()
  
         /*-------------Course API Route -------------*/
 
+        Route::match(['post','get'],'post-task/create',[
+            'as' => 'post-task_create',
+            'uses' => 'TaskController@create'
+            ]
+        );
+
         Route::match(['post','get'],'course',[
             'as' => 'course_index',
             'uses' => 'CourseController@index'
