@@ -128,21 +128,6 @@ class TaskController extends Controller {
                             'data'    => $data
                             ]
                         );
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
