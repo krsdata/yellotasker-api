@@ -55,6 +55,12 @@ Route::group(['prefix' => 'api/v1'], function()
             ]
         );
 
+        Route::match(['get'],'dashboard/categories',[
+            'as' => 'dashboard_get_categories',
+            'uses' => 'DashboardController@getCategories'
+            ]
+        );
+
         Route::match(['post','get'],'course',[
             'as' => 'course_index',
             'uses' => 'CourseController@index'
