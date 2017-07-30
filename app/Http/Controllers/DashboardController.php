@@ -67,7 +67,7 @@ class DashboardController extends Controller {
                 $image_url = env('IMAGE_URL',url::asset('storage/uploads/category/'));
                 
                 foreach($dashboard_categories as $key=>$value){
-                    $cat_array[$key]  = ['cat_id'=>$value['category_id'],'cat_name'=>$value['name'],'cat_order'=>$value['display_order'],'cat_image'=>$image_url.'/'.$value['category_image'],'group_id'=>$value['parent_id']];
+                    $cat_array[$key]  = ['cat_id'=>$value['category_id'],'cat_name'=>$value['name'],'cat_order'=>$value['display_order'],'cat_image'=>$image_url.'/storage/uploads/category/'.$value['category_image'],'group_id'=>$value['parent_id']];
 
                 }
 
