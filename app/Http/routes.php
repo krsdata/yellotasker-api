@@ -47,13 +47,38 @@ Route::group(['prefix' => 'api/v1'], function()
 
           /*---------End---------*/   
  
-        /*-------------Course API Route -------------*/
+        /*-------------Task API Route -------------*/
 
         Route::match(['post','get'],'post-task/create',[
             'as' => 'post-task_create',
             'uses' => 'TaskController@create'
             ]
         );
+
+        Route::match(['get'],'get-user-tasks/{user_id}',[
+            'as' => 'get_user_tasks',
+            'uses' => 'TaskController@getUserTasks'
+            ]
+        );
+
+        Route::match(['get'],'get-all-tasks',[
+            'as' => 'get_all_tasks',
+            'uses' => 'TaskController@getAllTasks'
+            ]
+        );
+
+        Route::match(['get'],'get-open-tasks',[
+            'as' => 'get_open_tasks',
+            'uses' => 'TaskController@getOpenTasks'
+            ]
+        );
+
+        Route::match(['get'],'get-recent-tasks',[
+            'as' => 'get_recent_tasks',
+            'uses' => 'TaskController@getRecentTasks'
+            ]
+        );
+        /*-------------Dashbord API Route -------------*/
 
         Route::match(['get'],'dashboard/categories',[
             'as' => 'dashboard_get_categories',

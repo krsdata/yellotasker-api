@@ -131,5 +131,100 @@ class TaskController extends Controller {
 
     }
 
+    public function getAllTasks(){
+        $Tasks = Tasks::all();
+    }
+
+    public function getOpenTasks(){
+        $tasks = Tasks::where('status', 0)->get();
+
+        if(count($tasks)){
+            $status  =  1;
+            $code    =  200;
+            $message =  "List of all open tasks.";
+            $data    =  $tasks;
+        } else {
+            $status  =  0;
+            $code    =  204;
+            $message =  "No open tasks found.";
+            $data    =  [];
+        }
+
+        return response()->json(
+                    [ 
+                    "status"  =>$status,
+                    'code'    => $code,
+                    "message" =>$message,
+                    'data'    => $data
+                    ]
+                );
+    }
+
+    // status '0'=>'open','1'=>'completed','2'=>'in-progress'
+    public function getRecentTasks(){
+        $tasks = Tasks::where('status', 1)
+               ->orderBy('id', 'desc')
+               ->take(8)
+               ->get();
+
+        if(count($tasks)){
+            $status  =  1;
+            $code    =  200;
+            $message =  "List of recently completed tasks.";
+            $data    =  $tasks;
+        } else {
+            $status  =  0;
+            $code    =  204;
+            $message =  "No tasks found.";
+            $data    =  [];
+        }
+
+        return response()->json(
+                    [ 
+                    "status"  =>$status,
+                    'code'    => $code,
+                    "message" =>$message,
+                    'data'    => $data
+                    ]
+                );
+    }
+
+    public function getUserTasks(Request $request)
+    {
+       $user_id = $request->user_id;
+
+        if($user_id)
+        {
+            $user_tasks  =   Tasks::where('user_id',$user_id)->get();
+
+            if(count($user_tasks)){
+                $status  =  1;
+                $code    =  200;
+                $message =  "List of tasks posted by user";
+                $data    =  $user_tasks;
+            } else {
+                $status  =  0;
+                $code    =  204;
+                $message =  "No tasks found for the given user.";
+                $data    =  [];
+            }
+            
+        } else {
+
+            $status  =  0;
+            $code    =  500;
+            $message =  "Invalid User ID."; 
+            $data    =  [];
+
+        }
+        return response()->json(
+                            [ 
+                            "status"  =>$status,
+                            'code'    => $code,
+                            "message" =>$message,
+                            'data'    => $data
+                            ]
+                        );
+    }
    
 }
