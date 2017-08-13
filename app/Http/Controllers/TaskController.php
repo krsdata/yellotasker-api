@@ -132,7 +132,28 @@ class TaskController extends Controller {
     }
 
     public function getAllTasks(){
-        $Tasks = Tasks::all();
+        $tasks = Tasks::all();
+
+        if(count($tasks)){
+            $status  =  1;
+            $code    =  200;
+            $message =  "List of all tasks.";
+            $data    =  $tasks;
+        } else {
+            $status  =  0;
+            $code    =  204;
+            $message =  "No tasks found.";
+            $data    =  [];
+        }
+
+        return response()->json(
+                    [ 
+                    "status"  =>$status,
+                    'code'    => $code,
+                    "message" =>$message,
+                    'data'    => $data
+                    ]
+                );
     }
 
     public function getOpenTasks(){
